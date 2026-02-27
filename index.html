@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus-Trade | Student Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+    <style>.gallery-container {
+  max-width: 1000px;
+  margin: 20px auto;
+  font-family: sans-serif;
+}
+
+.controls {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.product-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  text-align: center;
+  border-radius: 8px;
+  transition: transform 0.2s;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.product-card img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+/* Helper class for filtering */
+.hidden {
+  display: none;
+}</style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">Campus<span>Trade</span></div>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="browse.htm">Browse</a></li>
+            <li><a href="#">Sell Item</a></li>
+            <li><a href="myacc.htm">My Account</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <h1>Buy & Sell within the Campus</h1>
+        <p>The exclusive marketplace for GEC Palamu.</p>
+        <div class="search-container">
+            <input type="text" placeholder="Search for books, electronics, cycles...">
+            <button>Search</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2>Recent Listings</h2>
+        <div class="product-grid" id="product-list">
+            </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

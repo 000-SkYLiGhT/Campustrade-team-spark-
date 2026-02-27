@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus-Trade | Login</title>
+    <style>.gallery-container {
+  max-width: 1000px;
+  margin: 20px auto;
+  font-family: sans-serif;
+}
+
+.controls {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.product-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  text-align: center;
+  border-radius: 8px;
+  transition: transform 0.2s;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.product-card img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+/* Helper class for filtering */
+.hidden {
+  display: none;
+}</style>
+    <script>const filterDropdown = document.getElementById('filterCategory');
+const sortDropdown = document.getElementById('sortPrice');
+const grid = document.getElementById('productGrid');
+const products = Array.from(document.getElementsByClassName('product-card'));
+
+function updateGallery() {
+  const category = filterDropdown.value;
+  const sortOrder = sortDropdown.value;
+
+  // 1. Filter
+  products.forEach(product => {
+    const matches = category === 'all' || product.dataset.category === category;
+    product.classList.toggle('hidden', !matches);
+  });
+
+  // 2. Sort (Only active if a sort option is picked)
+  if (sortOrder !== 'default') {
+    const visibleProducts = products.filter(p => !p.classList.contains('hidden'));
+    
+    visibleProducts.sort((a, b) => {
+      const priceA = parseFloat(a.dataset.price);
+      const priceB = parseFloat(b.dataset.price);
+      return sortOrder === 'low' ? priceA - priceB : priceB - priceA;
+    });
+
+    // Re-append sorted elements to the grid
+    visibleProducts.forEach(p => grid.appendChild(p));
+  }
+}
+
+filterDropdown.addEventListener('change', updateGallery);
+sortDropdown.addEventListener('change', updateGallery);</script>
+</head>
+<body>
+    <div class="gallery-container">
+  <div class="controls">
+    <select id="filterCategory">
+      <option value="all">All Categories</option>
+      <option value="electronics">Electronics</option>
+      <option value="apparel">Apparel</option>
+    </select>
+
+    <select id="sortPrice">
+      <option value="default">Sort By</option>
+      <option value="low">Price: Low to High</option>
+      <option value="high">Price: High to Low</option>
+    </select>
+  </div>
+
+  <div class="product-grid" id="productGrid">
+    <div class="product-card" data-category="electronics" data-price="299">
+      <img src="https://via.placeholder.com/150" alt="Headphones">
+      <h3>Wireless Headphones</h3>
+      <p>$299</p>
+    </div>
+    <div class="product-card" data-category="apparel" data-price="45">
+      <img src="https://via.placeholder.com/150" alt="T-Shirt">
+      <h3>Cotton T-Shirt</h3>
+      <p>$45</p>
+    </div>
+    <div class="product-card" data-category="electronics" data-price="899">
+      <img src="https://via.placeholder.com/150" alt="Laptop">
+      <h3>Ultralight Laptop</h3>
+      <p>$899</p>
+    </div>
+  </div>
+</div>
+    
+</body>
+</html>

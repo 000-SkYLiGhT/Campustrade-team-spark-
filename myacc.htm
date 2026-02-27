@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus-Trade | Login</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f4f9; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .login-card { background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 300px; }
+        h2 { text-align: center; color: #333; }
+        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background: #007bff; border: none; color: white; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <h2 style="text-align: center;background-color: #3498db">Join Campus-Trade</h2>
+    <div class="auth-container">
+        
+        <p>Use your college email to get started</p>
+       <div class="login-card">
+        <h2>Login</h2>
+        <form action="save_user.php" method="POST">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Register / Save</button>
+        </form>
+    </div> 
+        <div id="g_id_onload"
+             data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
+             data-callback="handleCredentialResponse"
+             data-auto_prompt="false">
+        </div>
+        <div class="g_id_signin" data-type="standard"></div>
+
+        <div id="status-message"></div>
+    </div>
+
+    <script>
+        function handleCredentialResponse(response) {
+            // The response.credential is a JSON Web Token (JWT)
+            fetch('http://localhost:3000/api/auth/google', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token: response.credential })
+            })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('status-message').innerText = "Welcome, " + data.user.name;
+                // Redirect to home page after 2 seconds
+                setTimeout(() => { window.location.href = "index.html"; }, 2000);
+            })
+            .catch(err => console.error("Login Failed:", err));
+        }
+    </script>
+</body>
+</html>
